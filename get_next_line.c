@@ -5,30 +5,48 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sjacinda <sjacinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/11 16:37:45 by sjacinda          #+#    #+#             */
-/*   Updated: 2021/11/12 15:15:48 by sjacinda         ###   ########.fr       */
+/*   Created: 2021/11/26 19:16:55 by sjacinda          #+#    #+#             */
+/*   Updated: 2021/11/26 20:53:00 by sjacinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/stat.h>
 
-char *plus(int fd)
+char	*ft_read(int fd, char *str, char *buf)
 {
-	static char	a[5];
+	int	len;
 
-	read(fd, a, 4);
-	a[4] = '\0';
-	return(a);
+	len = 1;
+	while (!ft_strchar(str, '\n' && len != 0)
+	{
+		len = read(fd, buf, BUFFER_SIZE);
+		if (len < 0)
+		{
+			free(buf);
+			return (0);
+		}
+		buf[len] = '\0';
+		if (!str)
+			str = ft_strdup(buf);
+		else
+			str = ft_strjoin(str, buf);
+	}
+	free(buf);
+	return (str);
 }
 
-int	main(void)
+char	*get_next_line(int fd);
 {
-	int	fd;
+	char		*buf;
+	static char	*str;
+	char		*line;
 
-	fd = open("../test.txt", O_RDONLY);
-	printf("%s\n", plus(fd));
-	close(fd);
-	return (0);
+	if (fd < 0 || BUFFER_SIZE < 1)
+		return (NULL);
+	buf = malloc(BUFFER_SIZE + 1);
+	if (!buf)
+		return (NULL);
+	str = ft_read(fd, str, buf);
+	if (!str)
+		return (NULL);
+	
 }
