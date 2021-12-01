@@ -5,48 +5,24 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sjacinda <sjacinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/26 19:16:55 by sjacinda          #+#    #+#             */
-/*   Updated: 2021/11/26 20:53:00 by sjacinda         ###   ########.fr       */
+/*   Created: 2021/11/27 20:05:50 by sjacinda          #+#    #+#             */
+/*   Updated: 2021/12/01 17:07:36 by sjacinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line.h"
 
-char	*ft_read(int fd, char *str, char *buf)
+char	*get_next_line(int fd)
 {
-	int	len;
 
-	len = 1;
-	while (!ft_strchar(str, '\n' && len != 0)
-	{
-		len = read(fd, buf, BUFFER_SIZE);
-		if (len < 0)
-		{
-			free(buf);
-			return (0);
-		}
-		buf[len] = '\0';
-		if (!str)
-			str = ft_strdup(buf);
-		else
-			str = ft_strjoin(str, buf);
-	}
-	free(buf);
-	return (str);
 }
 
-char	*get_next_line(int fd);
+int	main(void)
 {
-	char		*buf;
-	static char	*str;
-	char		*line;
+	int	fd;
 
-	if (fd < 0 || BUFFER_SIZE < 1)
-		return (NULL);
-	buf = malloc(BUFFER_SIZE + 1);
-	if (!buf)
-		return (NULL);
-	str = ft_read(fd, str, buf);
-	if (!str)
-		return (NULL);
-	
+	fd = open("text.txt", O_RDONLY);
+	printf("%s", get_next_line(fd));
+ 	close(fd);
+	return (0);
 }
