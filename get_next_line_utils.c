@@ -6,7 +6,7 @@
 /*   By: sjacinda <sjacinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 16:38:25 by sjacinda          #+#    #+#             */
-/*   Updated: 2021/11/28 16:58:57 by sjacinda         ###   ########.fr       */
+/*   Updated: 2021/12/01 22:36:26 by sjacinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,33 +49,6 @@ char	*ft_strdup(const char *s1)
 		i++;
 	}
 	s2[i] = '\0';
-	return (s2);
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	size_t	i;
-	size_t	j;
-	char	*s2;
-
-	i = 0;
-	j = 0;
-	if (!s)
-		return (NULL);
-	if (len > ft_strlen(s))
-		len = ft_strlen(s);
-	if (len == 0 || start > ft_strlen(s))
-		return (ft_strdup(""));
-	s2 = (char *) malloc(sizeof(*s) * (len + 1));
-	if (!s2)
-		return (NULL);
-	while (s[i])
-	{
-		if (i >= start && j < len)
-			s2[j++] = s[i];
-		i++;
-	}
-	s2[j] = '\0';
 	return (s2);
 }
 

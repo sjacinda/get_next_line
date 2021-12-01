@@ -6,7 +6,7 @@
 /*   By: sjacinda <sjacinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 16:38:47 by sjacinda          #+#    #+#             */
-/*   Updated: 2021/12/01 17:07:24 by sjacinda         ###   ########.fr       */
+/*   Updated: 2021/12/02 00:56:04 by sjacinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <unistd.h>
 
 char	*get_next_line(int fd);
+char	*ft_end(char **tail);
+char	*ft_read(int fd, char *line, char **tail);
 
 size_t	ft_strlen(const char *s);
 char	*ft_strchr(const char *s, int c);
