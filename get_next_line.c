@@ -6,7 +6,7 @@
 /*   By: sjacinda <sjacinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 20:05:50 by sjacinda          #+#    #+#             */
-/*   Updated: 2021/12/02 15:28:45 by sjacinda         ###   ########.fr       */
+/*   Updated: 2021/12/03 01:33:47 by sjacinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,30 @@
 
 char	*ft_read(int fd, char *line, char **tail)
 {
-	char	buf[BUFFER_SIZE + 1];
+	char	buff[BUFFER_SIZE + 1];
+	char	*tmp;
 	char	*pn;
 	int		count_read;
-
-	while (!ft_strchr(line, '\n'))
+	
+	count_read = 1;
+	while (count_read > 0 && !ft_strchr(line, '\n'))
 	{
-		count_read = read(fd, buf, BUFFER_SIZE);
-		pn = ft_strchr(buf, '\n');
+		count_read = read(fd, buff, BUFFER_SIZE);
+		if (count_read < 1 && *line == '\0')
+		{
+			free(line);
+			return (NULL);
+		}
+		buff[count_read] = '\0';
+		pn = ft_strchr(buff, '\n');
 		if (pn)
 		{
 			*tail = ft_strdup(pn + 1);
 			*(pn + 1) = '\0';
 		}
-		line = ft_strjoin(line, buf);
+		tmp = line;
+		line = ft_strjoin(line, buff);
+		free(tmp);
 	}
 	return (line);
 }
@@ -40,20 +50,25 @@ char	*ft_end(char **tail)
 
 	pn = ft_strchr(*tail, '\n');
 	if (!pn)
-		return (*tail);
+	{
+		line = *tail;
+		*tail = NULL;
+		return (line);
+	}
 	tmp_tail = ft_strdup(pn + 1);
 	*(pn + 1) = '\0';
 	line = ft_strdup(*tail);
+	free(*tail);
 	*tail = tmp_tail;
 	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*tail;	// запомнает позицию для следующего вызова get_next_line
-	char		*line;	// срока, которая будет напечатана
-
-	if (fd < 0 || BUFFER_SIZE < 1)
+	static char	*tail;
+	char		*line;
+	
+	if ((read(fd, 0, 0) < 0))
 		return (NULL);
 	if (!tail)
 		line = ft_strdup("");
@@ -63,67 +78,21 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-int	main(void)
-{
-	int	fd;
-
-	fd = open("text.txt", O_RDONLY);
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	close(fd);
-	return (0);
-}
-
-
-
-
-// char	*ft_end(char **tail)
+// int	main(void)
 // {
-// 	char	*line;
-// 	char	*pn;
-// 	char	*tmp_tail;
+// 	char	*s;
+// 	int		fd;
+// 	int		count_line;
 
-// 	pn = ft_strchr(*tail, '\n');
-// 	if (pn)
+// 	count_line = 22;
+// 	fd = open("text.txt", O_RDONLY);
+// 	while (count_line > 0)
 // 	{
-// 		tmp_tail = ft_strdup(pn + 1);
-// 		*(pn + 1) = '\0';
-// 		line = ft_strdup(*tail);
-// 		free(*tail);
-// 		*tail = tmp_tail;
+// 		s = get_next_line(fd);
+// 		printf("%s", s);
+// 		free(s);
+// 		count_line--;
 // 	}
-// 	else
-// 		line = *tail;
-// 	return (line);
+// 	close(fd);
+// 	return (0);
 // }

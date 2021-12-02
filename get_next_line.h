@@ -6,15 +6,16 @@
 /*   By: sjacinda <sjacinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 16:38:47 by sjacinda          #+#    #+#             */
-/*   Updated: 2021/12/02 15:28:22 by sjacinda         ###   ########.fr       */
+/*   Updated: 2021/12/03 00:02:41 by sjacinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10000
+// # ifndef BUFFER_SIZE
+// #  define BUFFER_SIZE 42
+
 # include <stdio.h>
 # include <fcntl.h>
 # include <stdlib.h>
@@ -30,5 +31,5 @@ char	*ft_strdup(const char *s1);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 
-# endif
+// # endif
 #endif
