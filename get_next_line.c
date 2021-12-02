@@ -6,7 +6,7 @@
 /*   By: sjacinda <sjacinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 20:05:50 by sjacinda          #+#    #+#             */
-/*   Updated: 2021/12/02 01:00:52 by sjacinda         ###   ########.fr       */
+/*   Updated: 2021/12/02 15:28:45 by sjacinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ char	*ft_read(int fd, char *line, char **tail)
 	while (!ft_strchr(line, '\n'))
 	{
 		count_read = read(fd, buf, BUFFER_SIZE);
-		buf[count_read] = '\0';
 		pn = ft_strchr(buf, '\n');
 		if (pn)
 		{
@@ -40,26 +39,19 @@ char	*ft_end(char **tail)
 	char	*tmp_tail;
 
 	pn = ft_strchr(*tail, '\n');
-	if (pn)
-	{
-		tmp_tail = ft_strdup(pn + 1);
-		*(pn + 1) = '\0';
-		line = ft_strdup(*tail);
-		free(*tail);
-		*tail = tmp_tail;
-	}
-	else
-	{
-		line = *tail;
-		*tail = NULL;
-	}
+	if (!pn)
+		return (*tail);
+	tmp_tail = ft_strdup(pn + 1);
+	*(pn + 1) = '\0';
+	line = ft_strdup(*tail);
+	*tail = tmp_tail;
 	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*tail;
-	char		*line;
+	static char	*tail;	// запомнает позицию для следующего вызова get_next_line
+	char		*line;	// срока, которая будет напечатана
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
@@ -81,6 +73,57 @@ int	main(void)
 	printf("%s", get_next_line(fd));
 	printf("%s", get_next_line(fd));
 	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
 	close(fd);
 	return (0);
 }
+
+
+
+
+// char	*ft_end(char **tail)
+// {
+// 	char	*line;
+// 	char	*pn;
+// 	char	*tmp_tail;
+
+// 	pn = ft_strchr(*tail, '\n');
+// 	if (pn)
+// 	{
+// 		tmp_tail = ft_strdup(pn + 1);
+// 		*(pn + 1) = '\0';
+// 		line = ft_strdup(*tail);
+// 		free(*tail);
+// 		*tail = tmp_tail;
+// 	}
+// 	else
+// 		line = *tail;
+// 	return (line);
+// }

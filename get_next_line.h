@@ -6,7 +6,7 @@
 /*   By: sjacinda <sjacinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 16:38:47 by sjacinda          #+#    #+#             */
-/*   Updated: 2021/12/02 00:56:04 by sjacinda         ###   ########.fr       */
+/*   Updated: 2021/12/02 15:28:22 by sjacinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
+#  define BUFFER_SIZE 10000
 # include <stdio.h>
 # include <fcntl.h>
 # include <stdlib.h>
