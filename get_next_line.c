@@ -6,80 +6,74 @@
 /*   By: sjacinda <sjacinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 20:05:50 by sjacinda          #+#    #+#             */
-/*   Updated: 2021/12/03 02:19:16 by sjacinda         ###   ########.fr       */
+/*   Updated: 2021/12/03 18:44:41 by sjacinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_before(char	*line)
+char	*ft_tail(char	*tail)
 {
 	int		i;
-	char	*s1;
+	char	*str;
 
 	i = 0;
-	while (line[i] != '\n' && line[i])
+	while (tail[i] != '\n' && tail[i])
 		i++;
-	if (line[i] == '\n')
-		i++;
-	s1 = ft_substr(line, 0, i);
-	if (!s1 || s1[0] == '\0')
-		return (NULL);
-	return (s1);
+	str = ft_substr(tail, i + 1, ft_strlen(tail));
+	free(tail);
+	return (str);
 }
 
-char	*ft_after(char	*line)
+char	*ft_line(char	*tail)
 {
 	int		i;
-	char	*s2;
+	char	*line;
 
 	i = 0;
-	while (line[i] != '\n' && line[i])
+	while (tail[i] != '\n' && tail[i])
 		i++;
-	if (line[i] == '\n')
-		i++;
-	s2 = ft_substr(line, i, ft_strlen(line));
-	free(line);
-	return (s2);
+	line = ft_substr(tail, 0, i + 1);
+	return (line);
 }
 
-char	*ft_read(int fd, char *line)
+char	*ft_read(int fd, char *tail)
 {
 	char	buf[BUFFER_SIZE + 1];
-	int		n;
+	int		count_read;
 
-	n = 1;
-	while (n > 0 && !ft_strchr(line, '\n'))
+	count_read = 1;
+	while (count_read > 0 && !ft_strchr(tail, '\n'))
 	{
-		n = read(fd, buf, BUFFER_SIZE);
-		if (n < 0)
+		count_read = read(fd, buf, BUFFER_SIZE);
+		if (count_read < 0)
 			return (NULL);
-		buf[n] = '\0';
-		if (!line)
-			line = ft_substr(buf, 0, n);
+		buf[count_read] = '\0';
+		if (!tail)
+			tail = ft_substr(buf, 0, count_read);
 		else
-			line = ft_strjoin(line, buf);
+			tail = ft_strjoin(tail, buf);
 	}
-	return (line);
+	return (tail);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*line;
-	char		*s;
+	static char	*tail;
+	char		*line;
 
 	if ((read(fd, 0, 0) < 0))
 		return (NULL);
-	line = ft_read(fd, line);
-	if (!line[0])
+	tail = ft_read(fd, tail);
+	if (!tail[0])
 	{
-		free(line);
-		line = NULL;
+		free(tail);
+		tail = NULL;
 		return (NULL);
 	}
-	s = ft_before(line);
-	line = ft_after(line);
-	return (s);
+	line = ft_line(tail);
+	tail = ft_tail(tail);
+	return (line);
 }
 
 // int	main(void)
@@ -88,7 +82,7 @@ char	*get_next_line(int fd)
 // 	int		fd;
 // 	int		count_line;
 
-// 	count_line = 22;
+// 	count_line = 23;
 // 	fd = open("text.txt", O_RDONLY);
 // 	while (count_line > 0)
 // 	{

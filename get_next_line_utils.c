@@ -6,7 +6,7 @@
 /*   By: sjacinda <sjacinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 16:38:25 by sjacinda          #+#    #+#             */
-/*   Updated: 2021/12/03 03:54:16 by sjacinda         ###   ########.fr       */
+/*   Updated: 2021/12/03 16:43:48 by sjacinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	i = ft_strlen(s);
 	if (i < len)
 		len = i;
-	str = malloc(len + 1);
+	str = malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (NULL);
 	i = 0;
@@ -67,7 +67,7 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	if (!s1 || !s2)
 		return (NULL);
-	s3 = malloc(sizeof(*s3) * (ft_strlen(s1) + ft_strlen(s2)) + 1);
+	s3 = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)) + 1);
 	if (!s3)
 		return (NULL);
 	i = -1;
