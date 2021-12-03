@@ -6,13 +6,13 @@
 /*   By: sjacinda <sjacinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 20:05:50 by sjacinda          #+#    #+#             */
-/*   Updated: 2021/12/03 18:44:41 by sjacinda         ###   ########.fr       */
+/*   Updated: 2021/12/03 21:28:32 by sjacinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_tail(char	*tail)
+char	*ft_tail(char *tail)
 {
 	int		i;
 	char	*str;
@@ -25,7 +25,7 @@ char	*ft_tail(char	*tail)
 	return (str);
 }
 
-char	*ft_line(char	*tail)
+char	*ft_line(char *tail)
 {
 	int		i;
 	char	*line;
@@ -39,8 +39,8 @@ char	*ft_line(char	*tail)
 
 char	*ft_read(int fd, char *tail)
 {
-	char	buf[BUFFER_SIZE + 1];
 	int		count_read;
+	char	buf[BUFFER_SIZE + 1];
 
 	count_read = 1;
 	while (count_read > 0 && !ft_strchr(tail, '\n'))
@@ -62,7 +62,7 @@ char	*get_next_line(int fd)
 	static char	*tail;
 	char		*line;
 
-	if ((read(fd, 0, 0) < 0))
+	if (BUFFER_SIZE < 1 || (read(fd, 0, 0) < 0))
 		return (NULL);
 	tail = ft_read(fd, tail);
 	if (!tail[0])
@@ -76,21 +76,34 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-// int	main(void)
-// {
-// 	char	*s;
-// 	int		fd;
-// 	int		count_line;
+int	main(void)	// main для чтения из файла
+{
+	int		fd;
+	int		count_line;
+	char	*s;
 
-// 	count_line = 23;
-// 	fd = open("text.txt", O_RDONLY);
-// 	while (count_line > 0)
-// 	{
-// 		s = get_next_line(fd);
-// 		printf("%s", s);
-// 		free(s);
-// 		count_line--;
-// 	}
-// 	close(fd);
-// 	return (0);
-// }
+	count_line = 23;
+	fd = open("text.txt", O_RDONLY);
+	while (count_line > 0)
+	{
+		s = get_next_line(fd);
+		printf("%s", s);
+		free(s);
+		count_line--;
+	}
+	close(fd);
+	return (0);
+}
+
+int	main(void)	// main для чтения из стандартного ввода
+{
+	char	*s;
+
+	while ((s = get_next_line(0)) != NULL)
+	{
+		printf("%s", s);
+		free(s);
+	}
+	close(fd);
+	return (0);
+}
