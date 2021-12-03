@@ -6,7 +6,7 @@
 /*   By: sjacinda <sjacinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 20:05:50 by sjacinda          #+#    #+#             */
-/*   Updated: 2021/12/03 21:28:32 by sjacinda         ###   ########.fr       */
+/*   Updated: 2021/12/04 01:57:06 by sjacinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_line(char *tail)
 char	*ft_read(int fd, char *tail)
 {
 	int		count_read;
-	char	buf[BUFFER_SIZE + 1];
+	char	buf[BUFFER_SIZE + 1];	// выделяется память на стеке
 
 	count_read = 1;
 	while (count_read > 0 && !ft_strchr(tail, '\n'))
@@ -59,10 +59,10 @@ char	*ft_read(int fd, char *tail)
 
 char	*get_next_line(int fd)
 {
-	static char	*tail;
-	char		*line;
+	static char	*tail;	// остаток считанного после '\n', который нуже для слудующего вызова GNL
+	char		*line;	// строка которая будет возращатся GNL
 
-	if (BUFFER_SIZE < 1 || (read(fd, 0, 0) < 0))
+	if (BUFFER_SIZE < 1 || (read(fd, 0, 0) < 0))	// важная защита для BUFFER_SIZE < 1
 		return (NULL);
 	tail = ft_read(fd, tail);
 	if (!tail[0])
@@ -99,11 +99,11 @@ int	main(void)	// main для чтения из стандартного вво�
 {
 	char	*s;
 
-	while ((s = get_next_line(0)) != NULL)
+	while ((s = get_next_line(0)))
 	{
 		printf("%s", s);
 		free(s);
 	}
-	close(fd);
+	close(0);
 	return (0);
 }
