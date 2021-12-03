@@ -6,76 +6,80 @@
 /*   By: sjacinda <sjacinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 20:05:50 by sjacinda          #+#    #+#             */
-/*   Updated: 2021/12/03 01:33:47 by sjacinda         ###   ########.fr       */
+/*   Updated: 2021/12/03 02:19:16 by sjacinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_read(int fd, char *line, char **tail)
+char	*ft_before(char	*line)
 {
-	char	buff[BUFFER_SIZE + 1];
-	char	*tmp;
-	char	*pn;
-	int		count_read;
-	
-	count_read = 1;
-	while (count_read > 0 && !ft_strchr(line, '\n'))
-	{
-		count_read = read(fd, buff, BUFFER_SIZE);
-		if (count_read < 1 && *line == '\0')
-		{
-			free(line);
-			return (NULL);
-		}
-		buff[count_read] = '\0';
-		pn = ft_strchr(buff, '\n');
-		if (pn)
-		{
-			*tail = ft_strdup(pn + 1);
-			*(pn + 1) = '\0';
-		}
-		tmp = line;
-		line = ft_strjoin(line, buff);
-		free(tmp);
-	}
-	return (line);
+	int		i;
+	char	*s1;
+
+	i = 0;
+	while (line[i] != '\n' && line[i])
+		i++;
+	if (line[i] == '\n')
+		i++;
+	s1 = ft_substr(line, 0, i);
+	if (!s1 || s1[0] == '\0')
+		return (NULL);
+	return (s1);
 }
 
-char	*ft_end(char **tail)
+char	*ft_after(char	*line)
 {
-	char	*line;
-	char	*pn;
-	char	*tmp_tail;
+	int		i;
+	char	*s2;
 
-	pn = ft_strchr(*tail, '\n');
-	if (!pn)
+	i = 0;
+	while (line[i] != '\n' && line[i])
+		i++;
+	if (line[i] == '\n')
+		i++;
+	s2 = ft_substr(line, i, ft_strlen(line));
+	free(line);
+	return (s2);
+}
+
+char	*ft_read(int fd, char *line)
+{
+	char	buf[BUFFER_SIZE + 1];
+	int		n;
+
+	n = 1;
+	while (n > 0 && !ft_strchr(line, '\n'))
 	{
-		line = *tail;
-		*tail = NULL;
-		return (line);
+		n = read(fd, buf, BUFFER_SIZE);
+		if (n < 0)
+			return (NULL);
+		buf[n] = '\0';
+		if (!line)
+			line = ft_substr(buf, 0, n);
+		else
+			line = ft_strjoin(line, buf);
 	}
-	tmp_tail = ft_strdup(pn + 1);
-	*(pn + 1) = '\0';
-	line = ft_strdup(*tail);
-	free(*tail);
-	*tail = tmp_tail;
 	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*tail;
-	char		*line;
-	
+	static char	*line;
+	char		*s;
+
 	if ((read(fd, 0, 0) < 0))
 		return (NULL);
-	if (!tail)
-		line = ft_strdup("");
-	else
-		line = ft_end(&tail);
-	line = ft_read(fd, line, &tail);
-	return (line);
+	line = ft_read(fd, line);
+	if (!line[0])
+	{
+		free(line);
+		line = NULL;
+		return (NULL);
+	}
+	s = ft_before(line);
+	line = ft_after(line);
+	return (s);
 }
 
 // int	main(void)
