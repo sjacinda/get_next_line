@@ -6,7 +6,7 @@
 /*   By: sjacinda <sjacinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 16:38:47 by sjacinda          #+#    #+#             */
-/*   Updated: 2021/12/04 01:56:01 by sjacinda         ###   ########.fr       */
+/*   Updated: 2021/12/04 15:45:37 by sjacinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,10 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1	// здесь можно задавать BUFFER_SIZE разного размера
+#  define BUFFER_SIZE 1	// здесь так же можно задавать BUFFER_SIZE
 # endif
 
-// # ifndef BUFFER_SIZE	// таким образом можно переопределить BUFFER_SIZE,
-// #  define BUFFER_SIZE 1	// если подаётся BUFFER_SIZE < 1
-// # elif BUFFER_SIZE < 1
-// #  undef BUFFER_SIZE
-// #  define BUFFER_SIZE 1
-// # endif
-
-# include <stdio.h>	// для функции main, перед проверкой нужно удалить
+# include <stdio.h>	// для функции main
 # include <fcntl.h>	// для функции open
 # include <stdlib.h>	// для функции malloc
 # include <unistd.h>	// для остальных функций

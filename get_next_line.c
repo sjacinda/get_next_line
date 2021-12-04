@@ -6,7 +6,7 @@
 /*   By: sjacinda <sjacinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 20:05:50 by sjacinda          #+#    #+#             */
-/*   Updated: 2021/12/04 01:57:06 by sjacinda         ###   ########.fr       */
+/*   Updated: 2021/12/04 15:36:42 by sjacinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*get_next_line(int fd)
 	static char	*tail;	// остаток считанного после '\n', который нуже для слудующего вызова GNL
 	char		*line;	// строка которая будет возращатся GNL
 
-	if (BUFFER_SIZE < 1 || (read(fd, 0, 0) < 0))	// важная защита для BUFFER_SIZE < 1
+	if (fd < 0 || BUFFER_SIZE < 1 || (read(fd, 0, 0) < 0))	// важная защита для BUFFER_SIZE < 1
 		return (NULL);
 	tail = ft_read(fd, tail);
 	if (!tail[0])
@@ -76,7 +76,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-int	main(void)	// main для чтения из файла
+int	main(void)	// main для чтения из файла (fd >= 3)
 {
 	int		fd;
 	int		count_line;
@@ -95,7 +95,7 @@ int	main(void)	// main для чтения из файла
 	return (0);
 }
 
-int	main(void)	// main для чтения из стандартного ввода
+int	main(void)	// main для чтения из стандартного ввода (fd == 0)
 {
 	char	*s;
 
