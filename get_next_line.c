@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-char	*ft_tail(char *tail, int *j)
+char	*ft_tail(char *tail, int *n)
 {
 	char	*str;
 
@@ -21,7 +21,7 @@ char	*ft_tail(char *tail, int *j)
 	return (str);
 }
 
-char	*ft_line(char *tail, int *j)
+char	*ft_line(char *tail, int *n)
 {
 	int		i;
 	char	*line;
@@ -70,8 +70,8 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	n = 0;
-	line = ft_line(tail, &j);	// отправляю n по адрусу, что бы работать с оригинальной переменной
-	tail = ft_tail(tail, &j);	// здесь тоже
+	line = ft_line(tail, &n);	// отправляю n по адрусу, что бы работать с оригинальной переменной
+	tail = ft_tail(tail, &n);	// здесь тоже
 	return (line);
 }
 
