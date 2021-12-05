@@ -16,7 +16,7 @@ char	*ft_tail(char *tail, int *j)
 {
 	char	*str;
 
-	str = ft_substr(tail, *j + 1, ft_strlen(tail));
+	str = ft_substr(tail, *n + 1, ft_strlen(tail));
 	free(tail);
 	return (str);
 }
@@ -30,7 +30,7 @@ char	*ft_line(char *tail, int *j)
 	while (tail[i] != '\n' && tail[i])
 		i++;
 	line = ft_substr(tail, 0, i + 1);
-	*j = i;	// присваиваю индекс по которому расположен '\n'
+	*n = i;	// присваиваю индекс по которому расположен '\n'
 	return (line);
 }
 
@@ -56,7 +56,7 @@ char	*ft_read(int fd, char *tail)
 
 char	*get_next_line(int fd)
 {
-	int			j;
+	int			n;
 	static char	*tail;	// остаток считанного после '\n', который нуже для слудующего вызова GNL
 	char		*line;	// строка которая будет возращатся GNL
 
@@ -69,8 +69,8 @@ char	*get_next_line(int fd)
 		tail = NULL;
 		return (NULL);
 	}
-	j = 0;
-	line = ft_line(tail, &j);	// отправляю j по адрусу, что бы работать с оригинальной переменной
+	n = 0;
+	line = ft_line(tail, &j);	// отправляю n по адрусу, что бы работать с оригинальной переменной
 	tail = ft_tail(tail, &j);	// здесь тоже
 	return (line);
 }
