@@ -6,7 +6,7 @@
 /*   By: sjacinda <sjacinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 16:38:47 by sjacinda          #+#    #+#             */
-/*   Updated: 2021/12/04 15:45:37 by sjacinda         ###   ########.fr       */
+/*   Updated: 2021/12/05 12:21:31 by sjacinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 
 char	*get_next_line(int fd);
 char	*ft_read(int fd, char *tail);	// считывает файл и копирует в tail
-char	*ft_line(char *tail);	// копирует готовую строку в line
-char	*ft_tail(char *tail);	// сохраняет новый остаток для следующего вызова GNL
+char	*ft_line(char *tail, int *j);	// копирует готовую строку в line
+char	*ft_tail(char *tail, int *j);	// сохраняет новый остаток для следующего вызова GNL
 
 size_t	ft_strlen(const char *s);
 char	*ft_strchr(const char *s, int n);

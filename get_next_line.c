@@ -6,26 +6,22 @@
 /*   By: sjacinda <sjacinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 20:05:50 by sjacinda          #+#    #+#             */
-/*   Updated: 2021/12/04 15:36:42 by sjacinda         ###   ########.fr       */
+/*   Updated: 2021/12/05 12:21:46 by sjacinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_tail(char *tail)
+char	*ft_tail(char *tail, int *j)
 {
-	int		i;
 	char	*str;
 
-	i = 0;
-	while (tail[i] != '\n' && tail[i])
-		i++;
-	str = ft_substr(tail, i + 1, ft_strlen(tail));
+	str = ft_substr(tail, *j + 1, ft_strlen(tail));
 	free(tail);
 	return (str);
 }
 
-char	*ft_line(char *tail)
+char	*ft_line(char *tail, int *j)
 {
 	int		i;
 	char	*line;
@@ -34,6 +30,7 @@ char	*ft_line(char *tail)
 	while (tail[i] != '\n' && tail[i])
 		i++;
 	line = ft_substr(tail, 0, i + 1);
+	*j = i;	// присваиваю индекс по которому расположен '\n'
 	return (line);
 }
 
@@ -59,6 +56,7 @@ char	*ft_read(int fd, char *tail)
 
 char	*get_next_line(int fd)
 {
+	int			j;
 	static char	*tail;	// остаток считанного после '\n', который нуже для слудующего вызова GNL
 	char		*line;	// строка которая будет возращатся GNL
 
@@ -71,8 +69,9 @@ char	*get_next_line(int fd)
 		tail = NULL;
 		return (NULL);
 	}
-	line = ft_line(tail);
-	tail = ft_tail(tail);
+	j = 0;
+	line = ft_line(tail, &j);	// отправляю j по адрусу, что бы работать с оригинальной переменной
+	tail = ft_tail(tail, &j);
 	return (line);
 }
 
