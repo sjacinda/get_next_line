@@ -13,10 +13,6 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1	// здесь так же можно задавать BUFFER_SIZE
-# endif
-
 # include <stdio.h>	// для функции main
 # include <fcntl.h>	// для функции open
 # include <stdlib.h>	// для функции malloc
