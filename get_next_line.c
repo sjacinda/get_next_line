@@ -71,7 +71,7 @@ char	*get_next_line(int fd)
 	}
 	j = 0;
 	line = ft_line(tail, &j);	// отправляю j по адрусу, что бы работать с оригинальной переменной
-	tail = ft_tail(tail, &j);
+	tail = ft_tail(tail, &j);	// здесь тоже
 	return (line);
 }
 
