@@ -6,15 +6,15 @@
 /*   By: sjacinda <sjacinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 16:38:47 by sjacinda          #+#    #+#             */
-/*   Updated: 2021/12/05 12:21:31 by sjacinda         ###   ########.fr       */
+/*   Updated: 2021/12/05 15:57:46 by sjacinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <stdio.h>	// для функции main
-# include <fcntl.h>	// для функции open
+# include <stdio.h>		// для функции main
+# include <fcntl.h>		// для функции open
 # include <stdlib.h>	// для функции malloc
 # include <unistd.h>	// для остальных функций
 
