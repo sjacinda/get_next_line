@@ -70,7 +70,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	n = 0;
-	line = ft_line(tail, &n);	// отправляю n по адрусу, что бы работать с оригинальной переменной
+	line = ft_line(tail, &n);	// отправляю 'n' по адрусу, что бы работать с оригинальной переменной
 	tail = ft_tail(tail, &n);	// здесь тоже
 	return (line);
 }
