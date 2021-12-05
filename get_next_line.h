@@ -24,8 +24,8 @@
 
 char	*get_next_line(int fd);
 char	*ft_read(int fd, char *tail);	// считывает файл и копирует в tail
-char	*ft_line(char *tail, int *j);	// копирует готовую строку в line
-char	*ft_tail(char *tail, int *j);	// сохраняет новый остаток для следующего вызова GNL
+char	*ft_line(char *tail, int *n);	// копирует готовую строку в line
+char	*ft_tail(char *tail, int *n);	// сохраняет новый остаток для следующего вызова GNL
 
 size_t	ft_strlen(const char *s);
 char	*ft_strchr(const char *s, int n);
